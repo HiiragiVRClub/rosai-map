@@ -1,0 +1,46 @@
+/* 全体のスタイル */
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* ヘッダーのスタイル */
+header {
+    background-color: #c0392b; /* 注意を促す赤色 */
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8em;
+}
+
+header p {
+    margin: 5px 0 0 0;
+    font-size: 0.9em;
+}
+
+/* 地図コンテナのスタイル */
+#map {
+    width: 100%;
+    /* 高さを指定しないと地図が表示されない */
+    height: calc(100vh - 120px); /* 画面の高さからヘッダー分を引く */
+    border-top: 2px solid #a93226;
+}
+
+/* ポップアップのスタイル調整 */
+.leaflet-popup-content-wrapper {
+    border-radius: 5px;
+}
+.leaflet-popup-content h3 {
+    margin: 0 0 10px 0;
+    color: #c0392b;
+}
+.leaflet-popup-content p {
+    margin: 5px 0;
+}
