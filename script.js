@@ -55,3 +55,20 @@ function initMap() {
 }
 
 // フォーム関連の処理は不要になったため削除しました。
+
+// ---ここから追記---
+
+// メニューボタンの機能
+const menuButton = document.getElementById('menu-button');
+const navMenu = document.getElementById('nav-menu');
+const overlay = document.getElementById('overlay');
+
+menuButton.addEventListener('click', () => {
+    navMenu.classList.toggle('nav-active');
+    overlay.classList.toggle('nav-active');
+});
+
+overlay.addEventListener('click', () => {
+    navMenu.classList.remove('nav-active');
+    overlay.classList.remove('nav-active');
+});

@@ -6,36 +6,33 @@ body {
     color: #333;
 }
 
+/* --- ヘッダー関連 --- */
 header {
     background-color: #c0392b;
     color: white;
-    padding: 15px;
-    text-align: center;
+    padding: 10px 20px;
+    display: flex; /* Flexboxを有効化 */
+    justify-content: space-between; /* 両端に配置 */
+    align-items: center; /* 上下中央揃え */
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 header h1 {
     margin: 0;
+    font-size: 1.2em;
+}
+header h1 a {
+    color: white;
+    text-decoration: none;
 }
 
-.form-link-area {
-    margin-top: 10px;
-    margin-bottom: 0;
-}
-.form-link-area a {
-    color: #fff;
-    font-weight: bold;
-}
-
+/* --- 地図 --- */
 #map {
-    height: 85vh; /* フォームがなくなった分、地図を大きく表示 */
+    height: calc(100vh - 55px); /* ヘッダーの高さを引いた画面全体の高さに */
     width: 100%;
 }
 
-/* ポップアップウィンドウのスタイル */
-.popup-content {
-    line-height: 1.6;
-}
+/* --- ポップアップ --- */
 .popup-content h3 {
     margin-top: 0;
     color: #c0392b;
@@ -48,47 +45,90 @@ header h1 {
     text-decoration: underline;
 }
 
-/* --- 修正依頼フォームページのスタイル --- */
-#correction-form-section {
-    padding: 20px 40px;
-    background-color: #ffffff;
-    margin: 20px auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    max-width: 800px;
-    text-align: center;
-}
-
-#correction-form-section h2 {
-    color: #c0392b;
-    margin-top: 0;
-}
-
-.g-form-button {
-    display: inline-block;
-    background-color: #1a73e8; /* Googleカラー */
+/* --- スマホ向けメニュー --- */
+.menu-button {
+    display: none; /* デフォルトでは非表示 */
+    background: none;
+    border: 1px solid white;
     color: white;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 5px;
+    font-size: 1.5em;
     cursor: pointer;
-    font-size: 1.1em;
+    padding: 0 10px;
+    border-radius: 5px;
+}
+
+#nav-menu {
+    display: flex;
+    align-items: center;
+}
+
+.nav-about {
+    margin: 0 20px 0 0;
+    font-size: 0.9em;
+}
+
+.nav-link {
+    color: white;
+    font-weight: bold;
     text-decoration: none;
-    margin: 20px 0;
+    padding: 8px 12px;
+    border: 1px solid white;
+    border-radius: 5px;
     transition: background-color 0.3s;
 }
-
-.g-form-button:hover {
-    background-color: #1765c6;
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
-.back-link {
-    margin-top: 20px;
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
 }
-.back-link a {
-    color: #2980b9;
-    text-decoration: none;
-}
-.back-link a:hover {
-    text-decoration: underline;
+
+/* --- レスポンシブ設定 (画面幅768px以下で適用) --- */
+@media (max-width: 768px) {
+    .menu-button {
+        display: block; /* スマホではメニューボタンを表示 */
+    }
+
+    #nav-menu {
+        display: none; /* 通常時のメニューは非表示に */
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: -280px; /* 初期状態では画面外に配置 */
+        width: 250px;
+        height: 100%;
+        background-color: #333;
+        padding-top: 60px;
+        z-index: 100;
+        transition: right 0.3s ease-in-out;
+    }
+
+    #nav-menu.nav-active {
+        display: flex;
+        right: 0; /* アクティブ時にスライドイン */
+    }
+    
+    .overlay.nav-active {
+        display: block;
+    }
+
+    .nav-about {
+        color: #eee;
+        padding: 0 20px;
+        margin: 0 0 20px 0;
+        text-align: center;
+    }
+    
+    .nav-link {
+        width: 80%;
+        text-align: center;
+    }
 }

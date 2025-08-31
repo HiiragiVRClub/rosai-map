@@ -9,12 +9,17 @@
 <body>
 
     <header>
-        <h1>労災マップ - 全国版</h1>
-        <p>このマップは、公表された労働災害等の情報を可視化する試みです。</p>
-        <p class="form-link-area">
-            情報に誤りがありますか？ <a href="form.html">修正依頼フォームはこちら</a>
-        </p>
+        <h1><a href="/">労災マップ - 全国版</a></h1>
+        
+        <button id="menu-button" class="menu-button">☰</button>
+
+        <nav id="nav-menu">
+            <p class="nav-about">このマップは、公表された労働災害等の情報を可視化する試みです。</p>
+            <a href="form.html" class="nav-link">情報修正依頼フォーム</a>
+        </nav>
     </header>
+
+    <div id="overlay" class="overlay"></div>
 
     <div id="map"></div>
     
