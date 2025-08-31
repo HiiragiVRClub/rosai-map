@@ -5,14 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>労災マップ - 全国版</title>
     <link rel="stylesheet" href="style.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BJ0NDYRRSX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-BJ0NDYRRSX');
+    </script>
 </head>
 <body>
 
     <header>
         <h1><a href="/">労災マップ - 全国版</a></h1>
-        
         <button id="menu-button" class="menu-button">☰</button>
-
         <nav id="nav-menu">
             <p class="nav-about">このマップは、公表された労働災害等の情報を可視化する試みです。</p>
             <a href="form.html" class="nav-link">情報修正依頼フォーム</a>
@@ -22,7 +30,18 @@
     <div id="overlay" class="overlay"></div>
 
     <div id="map"></div>
-    
+
+    <div id="bottom-sheet" class="bottom-sheet">
+        <button id="close-sheet-button" class="close-sheet-button">&times;</button>
+        <div id="sheet-content" class="sheet-content">
+            <h3 id="sheet-company-name"></h3>
+            <p><strong>公表日:</strong> <span id="sheet-date"></span></p>
+            <p><strong>所在地:</strong> <span id="sheet-address"></span></p>
+            <p><strong>違反法令:</strong> <span id="sheet-law"></span></p>
+            <p><strong>事案概要:</strong> <span id="sheet-summary"></span></p>
+            <p><a id="sheet-source-link" href="#" target="_blank">情報源PDFを見る</a></p>
+        </div>
+    </div>
     <script src="script.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABUbvx9ERkVxxdzyuiWx8EmWKbOdv2mx8&callback=initMap" async defer></script>
 

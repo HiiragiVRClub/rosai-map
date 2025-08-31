@@ -3,8 +3,20 @@ function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 5,
         center: japanCenter,
-        gestureHandling: 'greedy' // Ctrlキーなしでスクロール可能に
+        gestureHandling: 'greedy'
     });
+
+    // ★ここから変更：ボトムシート関連の要素を取得
+    const bottomSheet = document.getElementById('bottom-sheet');
+    const closeSheetButton = document.getElementById('close-sheet-button');
+    const sheetCompanyName = document.getElementById('sheet-company-name');
+    const sheetDate = document.getElementById('sheet-date');
+    const sheetAddress = document.getElementById('sheet-address');
+    const sheetLaw = document.getElementById('sheet-law');
+    const sheetSummary = document.getElementById('sheet-summary');
+    const sheetSourceLink = document.getElementById('sheet-source-link');
+
+    // ★ InfoWindowのコードは不要になったため削除
 
     fetch('data.json')
         .then(response => {
@@ -28,22 +40,18 @@ function initMap() {
                         title: company.name
                     });
                     
-                    const infoWindowContent = `
-                        <div class="popup-content">
-                            <h3>${company.name}</h3>
-                            <p><strong>公表日:</strong> ${company.date_ad}</p>
-                            <p><strong>所在地:</strong> ${company.address}</p>
-                            <p><strong>違反法令:</strong> ${company.law}</p>
-                            <p><strong>事案概要:</strong> ${company.summary}</p>
-                            <p><a href="${sourceUrl}" target="_blank">情報源PDFを見る</a></p>
-                        </div>
-                    `;
-                    const infoWindow = new google.maps.InfoWindow({
-                        content: infoWindowContent
-                    });
-                    
+                    // ★ここから変更：マーカークリック時の処理をボトムシート用に書き換え
                     marker.addListener('click', () => {
-                        infoWindow.open(map, marker);
+                        // 1. ボトムシートに情報をセット
+                        sheetCompanyName.textContent = company.name;
+                        sheetDate.textContent = company.date_ad;
+                        sheetAddress.textContent = company.address;
+                        sheetLaw.textContent = company.law;
+                        sheetSummary.textContent = company.summary;
+                        sheetSourceLink.href = sourceUrl;
+
+                        // 2. ボトムシートを表示
+                        bottomSheet.classList.add('active');
                     });
                 });
             }
@@ -52,13 +60,19 @@ function initMap() {
             console.error('data.json の読み込みに失敗しました:', error);
             alert('データの読み込みに失敗しました。マップを表示できません。');
         });
+        
+    // ★ここから追加：ボトムシートを閉じる処理
+    closeSheetButton.addEventListener('click', () => {
+        bottomSheet.classList.remove('active');
+    });
+
+    // ★地図をクリックしたときもボトムシートを閉じる
+    map.addListener('click', () => {
+        bottomSheet.classList.remove('active');
+    });
 }
 
-// フォーム関連の処理は不要になったため削除しました。
-
-// ---ここから追記---
-
-// メニューボタンの機能
+// --- メニューボタンの機能 ---
 const menuButton = document.getElementById('menu-button');
 const navMenu = document.getElementById('nav-menu');
 const overlay = document.getElementById('overlay');
