@@ -3,13 +3,17 @@ function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), {
         zoom: 5,
         center: japanCenter,
+        gestureHandling: 'greedy' // Ctrlキーなしでスクロール可能に
     });
 
     fetch('data.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
-            // ★データがリストから辞書に変わったので、ループ方法を変更★
-            // sourceUrlにはPDFのURLが、casesにはそのPDFの事案リストが入る
             for (const sourceUrl in data) {
                 const cases = data[sourceUrl];
                 
@@ -17,6 +21,7 @@ function initMap() {
                     if (company.lat === 0 || company.lng === 0) {
                         return; 
                     }
+
                     const marker = new google.maps.Marker({
                         position: { lat: company.lat, lng: company.lng },
                         map: map,
@@ -44,6 +49,9 @@ function initMap() {
             }
         })
         .catch(error => {
-            console.error('Error fetching data.json:', error);
+            console.error('data.json の読み込みに失敗しました:', error);
+            alert('データの読み込みに失敗しました。マップを表示できません。');
         });
 }
+
+// フォーム関連の処理は不要になったため削除しました。
